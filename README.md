@@ -1,3 +1,13 @@
+<h1>Coach-Fit Chatbot</h1>
+<h1>Goal: The chatbot is meant to AID users with various types of body exercises</h1>
+
+<h2>Tech Stack:<h2>
+<ul>
+<li>PyQT5</li>
+<li>NLTK</li>
+</ul>ul>
+
+  
 <h1>Coach-Fit Chatbot Update</h1>
 <h1>Coach-Fit Chatbot</h1>
 
