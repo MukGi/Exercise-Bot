@@ -1,0 +1,1 @@
+self.textBox.setMaximumWidth(600)
