@@ -1,1 +1,2 @@
-self.textBox.setMaximumWidth(600)
+(user_input)
+        lematized_list = []

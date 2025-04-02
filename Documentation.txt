@@ -1,0 +1,3 @@
+INSTRUCTIONS:
+-Run main.py for up to date code
+Coach.py is brain.py updated.
