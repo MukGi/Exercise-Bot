@@ -8,7 +8,13 @@ Chatbot Features:
 -Greeting Response: The chatbot has different responses for different greetings
 -Workout Response: Responds to User Requests about workouts for various parts
 -Negation check: Detects if user does not want to do a certain exercise, and recommends something else.
+-Uses Part of Speech to get the grammatical context of the user's input
 
+NLTK Features Used:
+Part of speech tagging: pos_tag
+Tokenization
+Stemming
+Lemmatization
 
 Updates:
 -Fixed a bug where the alternate_choice function only gave options between

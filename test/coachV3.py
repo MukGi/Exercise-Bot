@@ -1,23 +1,27 @@
 """This is an updated version of the Coach's brain"""
 
+import random
+from nltk import pos_tag
 from nltk.tokenize import word_tokenize  
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 
-neg_word = ["no", "not", "never", "don't", "wont", "can't", "doesn't"]
+neg_word = ["no", "not", "never", "don't", "wont", "can't", "doesn't", "n't"]
 muscle_groups = ["arms", "legs", "abs", "biceps", "triceps", "cardio", "full body"]
 
-
-def get_response_dict():
-    """Returns a dictionary of responses."""
+def greetings_dict():
     return {
         "hello": "Hello! How can I assist you today?",
         "hi": "Hi there! What would you like to know?",
         "hey": "Hey! Need help with something?",
         "good morning": "Good morning! Ready to get started?",
         "good afternoon": "Good afternoon! How can I help you?",
-        "good evening": "Good evening! What’s on your mind?",
-        "arm": """Here are some arm workouts:\n
+        "good evening": "Good evening! What’s on your mind?",}
+    
+def workout_response_dict():
+    """Returns a dictionary of responses."""
+    return {
+        "arms": """Here are some arm workouts:\n
                  - Hammer Curls\n
                  - Concentration Curls\n
                  - Preacher Curls\n
@@ -89,52 +93,60 @@ def normalize_input(user_input):
     
     return normalized_words
 
-def check_negation(tokens):
-    """Basically detects if a user does not want to do a workout."""
-    for word in tokens:
+def check_negation(sentence):
+    """Basically detects if a user does not want to do a workout.
+        This process is more accurate with the part-of-speech tagging to read more into the context
+    """
+    for word in sentence:
         if word in neg_word:
             return True
     return False
 
+    # tokens = word_tokenize(sentence.lower())  
+    # tagged = pos_tag(tokens) 
+
+    # for i, (word, tag) in enumerate(tagged):
+    #     if word in neg_word:
+    #         grammar_context = tokens[i:i+4]
+    #         for muscle in muscle_groups:
+    #             if muscle in grammar_context:
+    #                 return True  
+    # return False  
+
 def alt_choice(excluded_workout):
     """If user rejects a workout, suggest another one"""
     alternatives = [group for group in muscle_groups if group != excluded_workout]
-    return f"Okay, would you prefer {alternatives[0]} workouts instead?"
+    return f"Okay, would you prefer {random.choice(alternatives)} workouts instead?"
 
-def get_bot_response(user_input, response_dict):
+def get_bot_response(user_input, response):
     """Processes the user input and returns an appropriate response."""
-    response_dict= get_response_dict()
-    normalized_input = normalize_input(user_input)
-    tokens = normalize_input(user_input)
-    normalized_dict = {WordNetLemmatizer().lemmatize(key): value for key, value in response_dict.items()}
+    response = workout_response_dict()
+    greetings = greetings_dict()
+    lemmatizer = WordNetLemmatizer()
     
-    """Normalizing the muscle group array
-    - Without this normalization, the bot cannot detect certain words in the muscle groups array. 
-    """
-    normalized_muscle_groups = {WordNetLemmatizer().lemmatize(m): m for m in muscle_groups}
-    
-    
-    """Respond to greeting if any"""
-    for greeting in response_dict:
-        if greeting in normalized_input:
-            return f"{normalized_dict[greeting]}"
-    
-    """Respond to exercise after checking for rejection"""
-    for norm_group, original in normalized_muscle_groups.items():
-        if norm_group in tokens or original in tokens:  
-            if check_negation(tokens):
-                return alt_choice(original)
-            return response_dict.get(original, " I don't have info on that muscle group.")
-    # if alt_choice(original):
-    #     if user_input =="yes":
-    #         return response_dict.get(original)
-         
-    return " I have no information on that."
+    # Tokenize and normalize user input
+    token_list = word_tokenize(user_input.lower())
+    lemmatized_tokens = set(lemmatizer.lemmatize(token) for token in token_list)
+
+    # Respond to greeting
+    for greeting in greetings:
+        if greeting in user_input.lower():
+            return greetings[greeting]
+
+    # Check if any muscle group is mentioned
+    for muscle in muscle_groups:
+        muscle_lemma = lemmatizer.lemmatize(muscle)
+        if muscle in token_list or muscle_lemma in lemmatized_tokens:
+            if check_negation(token_list):
+                return alt_choice(muscle)
+            return response.get(muscle, "Sorry, I don’t have info on that muscle group.")
+
+    return "I have no information on that."
 
 
-def main3():
+def main4():
     """Runs the chatbot in a loop."""
-    response_dict = get_response_dict()
+    response = workout_response_dict()
     exit_commands = {"exit", "bye", "quit"}
     
     while True:
@@ -142,7 +154,7 @@ def main3():
         if user_chat in exit_commands:
             print(" Adios!")
             break
-        print(get_bot_response(user_chat, response_dict))
+        print(get_bot_response(user_chat, response))
 
 if __name__ == "__main__":
-    main3()
+    main4()
