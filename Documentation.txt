@@ -1,3 +1,19 @@
-INSTRUCTIONS:
--Run main.py for up to date code
-Coach.py is brain.py updated.
+INSTRUCTIONS and INFO:
+-Main.py is the most up to date version
+-CoachV2.py contains the most up-to-date NLTK logic.
+-To test GUI, RUN Main.py
+-To use CLI for running the chatbot, run the CoachV2.py program
+
+Chatbot Features:
+-Greeting Response: The chatbot has different responses for different greetings
+-Workout Response: Responds to User Requests about workouts for various parts
+-Negation check: Detects if user does not want to do a certain exercise, and recommends something else.
+
+
+Updates:
+-Fixed a bug where the alternate_choice function only gave options between
+ arms and legs workouts rather than expanding to other choices
+-Fixed a bug where the "Check Negation" could not previously detect words with "n't."
+    E.g: "I don't want arm work outs" would previously 
+-Fixed an issue whereby users will input "I do not want arms workout",
+ and the chatbot responds with arm workouts anyways. 

@@ -8,7 +8,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 
 # Import functions from coach.py
-from coach import get_bot_response, get_response_dict
+from coachV2 import get_bot_response, get_response_dict
 
 class MainWindow(QMainWindow):
     def __init__(self):

@@ -4,8 +4,6 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 
-neg_word = {"no", "not", "never", "don't", "wont", "can't", "doesn't"}
-muscle_groups = ["arms", "legs", "abs", "biceps", "triceps", "cardio", "full body"]
 def get_response_dict():
     """Returns a dictionary of responses."""
     return {
@@ -86,8 +84,6 @@ def normalize_input(user_input):
         normalized_words.add(stemmer.stem(word))
     
     return normalized_words
-
-
 
 def get_bot_response(user_input, response_dict):
     """Processes the user input and returns an appropriate response."""
