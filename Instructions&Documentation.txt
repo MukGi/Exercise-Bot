@@ -1,8 +1,8 @@
 INSTRUCTIONS and INFO:
 -Main.py is the most up to date version
--CoachV2.py contains the most up-to-date NLTK logic.
+-CoachV4.py contains the most up-to-date NLTK logic.
 -To test GUI, RUN Main.py
--To use CLI for running the chatbot, run the CoachV2.py program
+-To use CLI for running the chatbot, run the CoachV4.py program
 
 Chatbot Features:
 -Greeting Response: The chatbot has different responses for different greetings
